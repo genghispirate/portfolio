@@ -1,13 +1,680 @@
 <!DOCTYPE html>
-<html lang=en>
-    <head>
-   
-    </head>
-<body style="background-color:black;>
-    <header><h1>Place holder website</h1>
-    </header>
-    <nav></nav>
-    <main>
-        <p>I should build build a website here, but currently I have no time.</p>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Othmane Rahmani | Marketing Portfolio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0f172a', /* Deep Navy */
+                        secondary: '#f1f5f9',
+                        accent: '#2563eb', /* Professional Blue */
+                        accentHover: '#1e40af',
+                        textDark: '#334155',
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'slide-up': 'slideUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .skill-tag {
+            transition: all 0.2s ease;
+            cursor: default;
+        }
+        .skill-tag:hover {
+            transform: translateY(-1px);
+            background-color: #e2e8f0;
+        }
+        /* Mobile Menu */
+        #mobile-menu {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        #mobile-menu.open {
+            max-height: 400px;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-900 antialiased selection:bg-accent selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/95 backdrop-blur-sm border-b border-gray-100" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" class="text-2xl font-serif italic font-bold text-primary">OR.</a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+                    <a href="#about" class="hover:text-accent transition-colors" data-i18n="nav_about">Über mich</a>
+                    <a href="#skills" class="hover:text-accent transition-colors" data-i18n="nav_skills">Expertise</a>
+                    <a href="#portfolio" class="hover:text-accent transition-colors" data-i18n="nav_portfolio">Projekte</a>
+                    <a href="#experience" class="hover:text-accent transition-colors" data-i18n="nav_experience">Werdegang</a>
+                    
+                    <!-- Language Switcher -->
+                    <button onclick="toggleLanguage()" class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-200 hover:border-accent transition-all group">
+                        <i data-lucide="globe" class="w-3.5 h-3.5 text-gray-400 group-hover:text-accent"></i>
+                        <span id="lang-current" class="text-xs font-bold uppercase tracking-wide">DE</span>
+                    </button>
+
+                    <!-- 🟢 EDIT HERE: Your Email for the Contact Button -->
+                    <a href="mailto:herrrahmanix@gmail.com" class="bg-primary text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-slate-800 transition-all shadow-md hover:shadow-lg" data-i18n="nav_contact">
+                        Kontakt
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center gap-4">
+                    <button onclick="toggleLanguage()" class="text-xs font-bold uppercase text-slate-600 border border-slate-200 px-3 py-1.5 rounded">DE / EN</button>
+                    <button id="mobile-menu-btn" class="text-primary focus:outline-none p-2">
+                        <i data-lucide="menu" class="w-7 h-7"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="md:hidden bg-white border-b border-gray-100 shadow-xl">
+            <div class="px-6 pt-4 pb-6 space-y-4">
+                <a href="#about" class="block py-2 text-slate-600 font-medium border-b border-gray-50" onclick="closeMenu()" data-i18n="nav_about">Über mich</a>
+                <a href="#skills" class="block py-2 text-slate-600 font-medium border-b border-gray-50" onclick="closeMenu()" data-i18n="nav_skills">Expertise</a>
+                <a href="#portfolio" class="block py-2 text-slate-600 font-medium border-b border-gray-50" onclick="closeMenu()" data-i18n="nav_portfolio">Projekte</a>
+                <a href="#experience" class="block py-2 text-slate-600 font-medium" onclick="closeMenu()" data-i18n="nav_experience">Werdegang</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center pt-20 relative overflow-hidden bg-slate-50/50">
+        <!-- Professional Background Blobs -->
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-100/40 rounded-full blur-[100px] -z-10 translate-x-1/3 -translate-y-1/4"></div>
+        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-slate-200/40 rounded-full blur-[100px] -z-10 -translate-x-1/4 translate-y-1/4"></div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+            <div class="inline-block mb-8 px-4 py-1.5 rounded-full bg-white border border-blue-100 shadow-sm text-accent text-xs font-bold tracking-widest uppercase animate-slide-up" data-i18n="hero_badge">
+                Open for Opportunities
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-bold mb-8 leading-[1.1] animate-slide-up text-primary" style="animation-delay: 0.1s;">
+                Marketing Manager <br>
+                <span class="font-serif italic font-normal text-slate-500 text-4xl md:text-6xl" data-i18n="hero_subtitle">& Digital Strategist</span>
+            </h1>
+            
+            <p class="max-w-2xl mx-auto text-lg md:text-xl text-slate-600 mb-12 leading-relaxed animate-slide-up" style="animation-delay: 0.2s;" data-i18n="hero_text">
+                Verbindung von <strong>Consumer Psychology</strong> mit technischer Marketing-Infrastruktur. 
+                Erfahren in Projektmanagement, Content-Strategie und digitalem Wachstum.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4 animate-slide-up" style="animation-delay: 0.3s;">
+                <a href="#portfolio" class="bg-accent text-white px-8 py-4 rounded-lg font-medium hover:bg-accentHover transition-all shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2">
+                    <span data-i18n="btn_portfolio">Projekte ansehen</span> <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                </a>
+                
+                <!-- 🟢 EDIT HERE: Your LinkedIn Profile Link -->
+                <a href="https://linkedin.com/in/othmanerahmani" target="_blank" class="bg-white text-slate-700 border border-slate-200 px-8 py-4 rounded-lg font-medium hover:bg-slate-50 transition-all flex items-center justify-center gap-2">
+                    <i data-lucide="linkedin" class="w-4 h-4"></i> LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About / Value Prop -->
+    <section id="about" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="reveal-on-scroll">
+                    <h2 class="text-3xl font-bold mb-6 text-primary" data-i18n="about_title">
+                        Mehr als nur <br><span class="gradient-text">Kampagnen-Management.</span>
+                    </h2>
+                    <p class="text-slate-600 text-lg mb-6 leading-relaxed" data-i18n="about_p1">
+                        Marketing ist heute mehr als nur "Werbung schalten". Durch meinen Hintergrund in <strong>Linguistik & Psychologie</strong> verstehe ich die Motive hinter dem Klick.
+                    </p>
+                    <p class="text-slate-600 text-lg mb-8 leading-relaxed" data-i18n="about_p2">
+                        Ergänzt durch praktische Erfahrung als <strong>Mitgründer</strong> bringe ich technisches Verständnis (CRM, SEO, Tools) und unternehmerisches Denken in jedes Projekt ein. Ich suche keine Probleme, sondern implementiere Lösungen.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="p-5 bg-slate-50 rounded-xl border border-slate-100">
+                            <h3 class="text-3xl font-bold text-accent mb-1">4+</h3>
+                            <p class="text-sm text-slate-500 font-medium uppercase tracking-wide" data-i18n="stat_exp">Jahre Erfahrung</p>
+                        </div>
+                        <div class="p-5 bg-slate-50 rounded-xl border border-slate-100">
+                            <h3 class="text-3xl font-bold text-accent mb-1">4</h3>
+                            <p class="text-sm text-slate-500 font-medium uppercase tracking-wide" data-i18n="stat_lang">Sprachen</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Skill Visual -->
+                <div class="relative reveal-on-scroll delay-100">
+                    <div class="absolute inset-0 bg-blue-50 rounded-2xl transform rotate-2"></div>
+                    <div class="relative bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+                        <h3 class="text-lg font-bold mb-8 flex items-center gap-2 text-primary" data-i18n="skills_chart_title">
+                            <i data-lucide="bar-chart-2" class="text-accent w-5 h-5"></i> Kompetenz-Profil
+                        </h3>
+                        <div class="space-y-6">
+                            <!-- Skill 1 -->
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium text-slate-700 text-sm" data-i18n="skill_label_1">Digital Strategy & SEO</span>
+                                    <span class="text-accent font-bold text-sm">High</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-1.5">
+                                    <div class="bg-accent h-1.5 rounded-full" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <!-- Skill 2 -->
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium text-slate-700 text-sm" data-i18n="skill_label_2">Content & Design (Canva)</span>
+                                    <span class="text-accent font-bold text-sm">Advanced</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-1.5">
+                                    <div class="bg-accent h-1.5 rounded-full" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <!-- Skill 3 -->
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium text-slate-700 text-sm" data-i18n="skill_label_3">Tech Literacy (CRM/Linux)</span>
+                                    <span class="text-accent font-bold text-sm">Solid</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-1.5">
+                                    <div class="bg-accent h-1.5 rounded-full" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <!-- Skill 4 -->
+                            <div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-medium text-slate-700 text-sm" data-i18n="skill_label_4">Consumer Psychology</span>
+                                    <span class="text-accent font-bold text-sm">Expert</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-1.5">
+                                    <div class="bg-accent h-1.5 rounded-full" style="width: 95%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Skills Grid -->
+    <section id="skills" class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <span class="text-accent font-bold tracking-widest text-xs uppercase bg-blue-50 px-3 py-1 rounded-full" data-i18n="skills_label">Hard Skills</span>
+                <h2 class="text-3xl font-bold mt-4 text-primary" data-i18n="skills_title">Tools & Technologien</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Tech Stack -->
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-slate-200 hover:border-blue-200 transition-colors reveal-on-scroll">
+                    <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center mb-6">
+                        <i data-lucide="database" class="text-accent w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-4 text-primary" data-i18n="cat_tech">Data & Tech</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-slate-50 text-slate-700 text-sm rounded border border-slate-100 skill-tag" data-i18n="tag_linux">Linux Basics</span>
+                        <span class="px-3 py-1 bg-slate-50 text-slate-700 text-sm rounded border border-slate-100 skill-tag" data-i18n="tag_crm">Zoho CRM</span>
+                        <span class="px-3 py-1 bg-slate-50 text-slate-700 text-sm rounded border border-slate-100 skill-tag" data-i18n="tag_seo">Technical SEO</span>
+                        <span class="px-3 py-1 bg-slate-50 text-slate-700 text-sm rounded border border-slate-100 skill-tag" data-i18n="tag_analytics">Google Analytics</span>
+                    </div>
+                </div>
+
+                <!-- Creative -->
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-slate-200 hover:border-pink-200 transition-colors reveal-on-scroll delay-100">
+                    <div class="w-10 h-10 bg-pink-50 rounded-lg flex items-center justify-center mb-6">
+                        <i data-lucide="pen-tool" class="text-pink-500 w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-4 text-primary" data-i18n="cat_creative">Creative & Content</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-slate-50 text-slate-700 text-sm rounded border border-slate-100 skill-tag" data-i18n="tag_canva">Canva Pro</span>
+                        <span class="px-3 py-1 bg-slate-50 text-slate-700 text-sm rounded border border-slate-100 skill-tag" data-i18n="tag_story">Storytelling</span>
+                        <span class="px-3 py-1 bg-slate-50 text-slate-700 text-sm rounded border border-slate-100 skill-tag" data-i18n="tag_ci">Corporate Identity</span>
+                        <span class="px-3 py-1 bg-slate-50 text-slate-700 text-sm rounded border border-slate-100 skill-tag" data-i18n="tag_social">Social Growth</span>
+                    </div>
+                </div>
+
+                <!-- Strategic -->
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-slate-200 hover:border-green-200 transition-colors reveal-on-scroll delay-200">
+                    <div class="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center mb-6">
+                        <i data-lucide="trello" class="text-green-600 w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-lg font-bold mb-4 text-primary" data-i18n="cat_strategy">Management</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-slate-50 text-slate-700 text-sm rounded border border-slate-100 skill-tag" data-i18n="tag_pm">Project Mgmt</span>
+                        <span class="px-3 py-1 bg-slate-50 text-slate-700 text-sm rounded border border-slate-100 skill-tag" data-i18n="tag_agile">Agile Methods</span>
+                        <span class="px-3 py-1 bg-slate-50 text-slate-700 text-sm rounded border border-slate-100 skill-tag" data-i18n="tag_team">Team Lead</span>
+                        <span class="px-3 py-1 bg-slate-50 text-slate-700 text-sm rounded border border-slate-100 skill-tag" data-i18n="tag_mckinsey">McKinsey Forward</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio / Projects -->
+    <section id="portfolio" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-16 reveal-on-scroll">
+                <h2 class="text-3xl font-bold mb-4 text-primary" data-i18n="projects_title">Ausgewählte Projekte</h2>
+                <p class="text-slate-500 max-w-2xl text-lg" data-i18n="projects_subtitle">Praktische Anwendung von Brand Building, Infrastruktur und Marketing-Strategie.</p>
+            </div>
+
+            <div class="space-y-24">
+                <!-- Project 1: Agora Events -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start reveal-on-scroll">
+                    <div class="order-2 lg:order-1">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="px-3 py-1 bg-slate-100 rounded text-xs font-bold uppercase tracking-wide text-slate-600">Co-Founder</span>
+                            <span class="px-3 py-1 bg-pink-50 rounded text-xs font-bold uppercase tracking-wide text-pink-600">Brand Building</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-primary" data-i18n="proj1_title">Agora Events: Building a Brand from Zero</h3>
+                        <p class="text-slate-600 mb-6 leading-relaxed" data-i18n="proj1_desc">
+                            Konzeption und Aufbau einer unabhängigen Event-Marke. Als Marketing Lead verantwortete ich das <strong>Corporate Identity</strong> und die Go-to-Market Strategie. Fokus auf "Scarcity Marketing" (Verknappung) zur Steigerung der Nachfrage.
+                        </p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></div>
+                                <span class="text-slate-700 text-sm leading-relaxed" data-i18n="proj1_li1">Entwicklung einer modernen "Dark Mode" Markenidentität mit Canva & Tailwind CSS.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></div>
+                                <span class="text-slate-700 text-sm leading-relaxed" data-i18n="proj1_li2">Aufbau eines direkten Community-Kanals via WhatsApp zur Umgehung von Algorithmen.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></div>
+                                <span class="text-slate-700 text-sm leading-relaxed" data-i18n="proj1_li3">Implementierung digitaler Sales-Funnels für Ticket-Launches.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="order-1 lg:order-2">
+                        <div class="bg-primary rounded-xl p-8 aspect-video flex items-center justify-center shadow-2xl relative overflow-hidden group">
+                            <div class="absolute inset-0 bg-gradient-to-br from-pink-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <h3 class="text-5xl font-display font-bold text-white tracking-widest">AGORA.</h3>
+                            <div class="absolute bottom-4 right-6 text-white/60 text-xs tracking-widest uppercase border border-white/10 px-3 py-1 rounded-full">Coming 2025</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Summitglow Staffing -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start reveal-on-scroll">
+                    <div class="order-2 lg:order-2">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="px-3 py-1 bg-slate-100 rounded text-xs font-bold uppercase tracking-wide text-slate-600">Operations</span>
+                            <span class="px-3 py-1 bg-blue-50 rounded text-xs font-bold uppercase tracking-wide text-blue-600">B2B Lead Gen</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-primary" data-i18n="proj2_title">Summitglow Staffing: Digital Infrastructure</h3>
+                        <p class="text-slate-600 mb-6 leading-relaxed" data-i18n="proj2_desc">
+                            Mitgründung einer Personalvermittlung. Mein Fokus lag auf der <strong>digitalen Infrastruktur</strong> und der Generierung von B2B-Leads. Ich etablierte technische Prozesse, um das Geschäft skalierbar zu machen.
+                        </p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></div>
+                                <span class="text-slate-700 text-sm leading-relaxed" data-i18n="proj2_li1">Setup von Zoho CRM zur Automatisierung des Bewerber-Managements.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></div>
+                                <span class="text-slate-700 text-sm leading-relaxed" data-i18n="proj2_li2">SEO-optimierte Website-Entwicklung & Copywriting für B2B-Kunden.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0"></div>
+                                <span class="text-slate-700 text-sm leading-relaxed" data-i18n="proj2_li3">Strukturierung der Geschäftsprozesse und juristische Gründung (LLC).</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="order-1 lg:order-1">
+                        <div class="bg-white border border-slate-200 rounded-xl p-8 aspect-video flex items-center justify-center shadow-lg relative overflow-hidden group">
+                             <div class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+                             <div class="text-center z-10">
+                                <i data-lucide="layout-grid" class="w-12 h-12 text-blue-600 mx-auto mb-4"></i>
+                                <h3 class="text-xl font-bold text-slate-800">CRM & SEO Ops</h3>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Timeline -->
+    <section id="experience" class="py-24 bg-primary text-white">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal-on-scroll">
+                <h2 class="text-3xl font-bold" data-i18n="timeline_title">Beruflicher Werdegang</h2>
+            </div>
+
+            <div class="relative border-l border-slate-700 ml-4 md:ml-0 space-y-12">
+                
+                <!-- Item 1 -->
+                <div class="relative pl-8 md:pl-0 reveal-on-scroll">
+                    <div class="hidden md:block absolute left-[-9px] top-2 w-4 h-4 rounded-full bg-accent border-4 border-primary"></div>
+                    <div class="md:grid md:grid-cols-12 md:gap-8 items-start">
+                        <div class="col-span-3 text-slate-400 font-mono text-xs uppercase tracking-wide pt-1 md:text-right" data-i18n="time1_date">Jan 2025 - Heute</div>
+                        <div class="col-span-9">
+                            <h3 class="text-lg font-bold text-white">Front Office Associate</h3>
+                            <p class="text-accent text-sm mb-3">Four Points Flex by Sheraton Essen</p>
+                            <p class="text-slate-300 text-sm leading-relaxed" data-i18n="time1_desc">
+                                Verbesserung der Gästezufriedenheit durch direkte Kommunikation. Analyse von Feedback-Daten zur Optimierung interner Abläufe.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="relative pl-8 md:pl-0 reveal-on-scroll">
+                    <div class="hidden md:block absolute left-[-9px] top-2 w-4 h-4 rounded-full bg-blue-900 border-4 border-primary"></div>
+                    <div class="md:grid md:grid-cols-12 md:gap-8 items-start">
+                        <div class="col-span-3 text-slate-400 font-mono text-xs uppercase tracking-wide pt-1 md:text-right" data-i18n="time2_date">Mai 2024 - Jan 2025</div>
+                        <div class="col-span-9">
+                            <h3 class="text-lg font-bold text-white">Co-Founder & Marketing Lead</h3>
+                            <p class="text-accent text-sm mb-3">Summitglow Staffing</p>
+                            <p class="text-slate-300 text-sm leading-relaxed" data-i18n="time2_desc">
+                                Strategische Leitung des digitalen Marketings. Einführung von Zoho CRM zur Prozessautomatisierung und Aufbau der technischen SEO-Struktur.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="relative pl-8 md:pl-0 reveal-on-scroll">
+                    <div class="hidden md:block absolute left-[-9px] top-2 w-4 h-4 rounded-full bg-slate-600 border-4 border-primary"></div>
+                    <div class="md:grid md:grid-cols-12 md:gap-8 items-start">
+                        <div class="col-span-3 text-slate-400 font-mono text-xs uppercase tracking-wide pt-1 md:text-right" data-i18n="time3_date">Jun 2022 - Jan 2025</div>
+                        <div class="col-span-9">
+                            <h3 class="text-lg font-bold text-white" data-i18n="time3_role">Ausbildung Hotelfachmann (Marketing)</h3>
+                            <p class="text-accent text-sm mb-3">Four Points Flex by Sheraton Bochum</p>
+                            <p class="text-slate-300 text-sm leading-relaxed" data-i18n="time3_desc">
+                                Erstellung von Marketingmaterialien (Flyer, Digital Signage). Entwicklung erfolgreicher Upselling-Strategien zur Umsatzsteigerung.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Education Highlight -->
+                <div class="relative pl-8 md:pl-0 reveal-on-scroll">
+                    <div class="hidden md:block absolute left-[-9px] top-2 w-4 h-4 rounded-full bg-slate-600 border-4 border-primary"></div>
+                    <div class="md:grid md:grid-cols-12 md:gap-8 items-start">
+                        <div class="col-span-3 text-slate-400 font-mono text-xs uppercase tracking-wide pt-1 md:text-right" data-i18n="time4_date">Abschluss 2021</div>
+                        <div class="col-span-9">
+                            <h3 class="text-lg font-bold text-white">BA English & Linguistics</h3>
+                            <p class="text-accent text-sm mb-3">Universität Sidi Mohamed Ben Abdellah</p>
+                            <p class="text-slate-300 text-sm leading-relaxed" data-i18n="time4_desc">
+                                Schwerpunkt: <strong>Angewandte Linguistik & Psychologie</strong>. Analyse von Sprachmustern zur Beeinflussung von Kaufentscheidungen.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / CTA -->
+    <section class="py-20 bg-white border-t border-slate-100">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6 text-primary" data-i18n="cta_title">Kontakt aufnehmen</h2>
+            <p class="text-slate-600 mb-10 text-lg leading-relaxed" data-i18n="cta_desc">
+                Ich suche nach einer Herausforderung im Digital Marketing oder Brand Management.<br>
+                Bereit, meine strategischen und operativen Fähigkeiten einzubringen.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <!-- 🟢 EDIT HERE: Your Email -->
+                <a href="mailto:herrrahmanix@gmail.com" class="bg-primary text-white px-8 py-4 rounded-lg font-medium hover:bg-slate-800 transition-all flex items-center justify-center gap-2">
+                    <i data-lucide="mail" class="w-5 h-5"></i> herrrahmanix@gmail.com
+                </a>
+                <!-- 🟢 EDIT HERE: Your Phone Number -->
+                <a href="tel:+491783638290" class="bg-slate-100 text-slate-800 px-8 py-4 rounded-lg font-medium hover:bg-slate-200 transition-all flex items-center justify-center gap-2">
+                    <i data-lucide="phone" class="w-5 h-5"></i> +49 178 363 8290
+                </a>
+            </div>
+            <div class="mt-16 text-slate-400 text-sm">
+                &copy; 2025 Othmane Rahmani. Built with Marketing-Mindset & Code.
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // --- LANGUAGE LOGIC ---
+        const translations = {
+            de: {
+                nav_about: "Über mich",
+                nav_skills: "Expertise",
+                nav_portfolio: "Projekte",
+                nav_experience: "Werdegang",
+                nav_contact: "Kontakt",
+                hero_badge: "Offen für Angebote",
+                hero_subtitle: "& Digital Strategist",
+                hero_text: "Verbindung von <strong>Consumer Psychology</strong> mit technischer Marketing-Infrastruktur. Erfahren in Projektmanagement, Content-Strategie und digitalem Wachstum.",
+                btn_portfolio: "Projekte ansehen",
+                about_title: "Mehr als nur <br><span class='gradient-text'>Kampagnen-Management.</span>",
+                about_p1: "Marketing ist heute mehr als nur \"Werbung schalten\". Durch meinen Hintergrund in <strong>Linguistik & Psychologie</strong> verstehe ich die Motive hinter dem Klick.",
+                about_p2: "Ergänzt durch praktische Erfahrung als <strong>Mitgründer</strong> bringe ich technisches Verständnis (CRM, SEO, Tools) und unternehmerisches Denken in jedes Projekt ein. Ich suche keine Probleme, sondern implementiere Lösungen.",
+                stat_exp: "Jahre Erfahrung",
+                stat_lang: "Sprachen",
+                skills_chart_title: "<i data-lucide='bar-chart-2' class='text-accent w-5 h-5'></i> Kompetenz-Profil",
+                skill_label_1: "Digital Strategy & SEO",
+                skill_label_2: "Content & Design (Canva)",
+                skill_label_3: "Tech Literacy (CRM/Linux)",
+                skill_label_4: "Consumer Psychology",
+                skills_label: "Hard Skills",
+                skills_title: "Tools & Technologien",
+                cat_tech: "Data & Tech",
+                cat_creative: "Creative & Content",
+                cat_strategy: "Management",
+                tag_linux: "Linux Basics",
+                tag_crm: "Zoho CRM",
+                tag_seo: "Technisches SEO",
+                tag_analytics: "Google Analytics",
+                tag_canva: "Canva Pro",
+                tag_story: "Storytelling",
+                tag_ci: "Corporate Identity",
+                tag_social: "Social Growth",
+                tag_pm: "Projektmanagement",
+                tag_agile: "Agile Methoden",
+                tag_team: "Teamführung",
+                tag_mckinsey: "McKinsey Forward",
+                projects_title: "Ausgewählte Projekte",
+                projects_subtitle: "Praktische Anwendung von Brand Building, Infrastruktur und Marketing-Strategie.",
+                proj1_title: "Agora Events: Brand Building",
+                proj1_desc: "Konzeption und Aufbau einer unabhängigen Event-Marke. Als Marketing Lead verantwortete ich das <strong>Corporate Identity</strong> und die Go-to-Market Strategie. Fokus auf \"Scarcity Marketing\" (Verknappung) zur Steigerung der Nachfrage.",
+                proj1_li1: "Entwicklung einer modernen \"Dark Mode\" Markenidentität mit Canva & Tailwind CSS.",
+                proj1_li2: "Aufbau eines direkten Community-Kanals via WhatsApp zur Umgehung von Algorithmen.",
+                proj1_li3: "Implementierung digitaler Sales-Funnels für Ticket-Launches.",
+                proj2_title: "Summitglow Staffing: Infrastruktur",
+                proj2_desc: "Mitgründung einer Personalvermittlung. Mein Fokus lag auf der <strong>digitalen Infrastruktur</strong> und der Generierung von B2B-Leads. Ich etablierte technische Prozesse, um das Geschäft skalierbar zu machen.",
+                proj2_li1: "Setup von Zoho CRM zur Automatisierung des Bewerber-Managements.",
+                proj2_li2: "SEO-optimierte Website-Entwicklung & Copywriting für B2B-Kunden.",
+                proj2_li3: "Strukturierung der Geschäftsprozesse und juristische Gründung (LLC).",
+                timeline_title: "Beruflicher Werdegang",
+                time1_date: "Jan 2025 - Heute",
+                time1_desc: "Verbesserung der Gästezufriedenheit durch direkte Kommunikation. Analyse von Feedback-Daten zur Optimierung interner Abläufe.",
+                time2_date: "Mai 2024 - Jan 2025",
+                time2_desc: "Strategische Leitung des digitalen Marketings. Einführung von Zoho CRM zur Prozessautomatisierung und Aufbau der technischen SEO-Struktur.",
+                time3_date: "Jun 2022 - Jan 2025",
+                time3_role: "Ausbildung Hotelfachmann (Marketing)",
+                time3_desc: "Erstellung von Marketingmaterialien (Flyer, Digital Signage). Entwicklung erfolgreicher Upselling-Strategien zur Umsatzsteigerung.",
+                time4_date: "Abschluss 2021",
+                time4_desc: "Schwerpunkt: <strong>Angewandte Linguistik & Psychologie</strong>. Analyse von Sprachmustern zur Beeinflussung von Kaufentscheidungen.",
+                cta_title: "Kontakt aufnehmen",
+                cta_desc: "Ich suche nach einer Herausforderung im Digital Marketing oder Brand Management.<br>Bereit, meine strategischen und operativen Fähigkeiten einzubringen."
+            },
+            en: {
+                nav_about: "About Me",
+                nav_skills: "Expertise",
+                nav_portfolio: "Projects",
+                nav_experience: "Career",
+                nav_contact: "Contact",
+                hero_badge: "Open for Opportunities",
+                hero_subtitle: "& Digital Strategist",
+                hero_text: "Bridging <strong>Consumer Psychology</strong> with technical marketing infrastructure. Experienced in project management, content strategy, and digital growth.",
+                btn_portfolio: "View Projects",
+                about_title: "More than just <br><span class='gradient-text'>Campaign Management.</span>",
+                about_p1: "Marketing today is more than just \"running ads\". With my background in <strong>Linguistics & Psychology</strong>, I understand the motives behind the click.",
+                about_p2: "Supplemented by practical experience as a <strong>Co-Founder</strong>, I bring technical understanding (CRM, SEO, tools) and an entrepreneurial mindset to every project. I don't look for problems; I implement solutions.",
+                stat_exp: "Years Experience",
+                stat_lang: "Languages",
+                skills_chart_title: "<i data-lucide='bar-chart-2' class='text-accent w-5 h-5'></i> Skill Profile",
+                skill_label_1: "Digital Strategy & SEO",
+                skill_label_2: "Content & Design (Canva)",
+                skill_label_3: "Tech Literacy (CRM/Linux)",
+                skill_label_4: "Consumer Psychology",
+                skills_label: "Hard Skills",
+                skills_title: "Tools & Technologies",
+                cat_tech: "Data & Tech",
+                cat_creative: "Creative & Content",
+                cat_strategy: "Management",
+                tag_linux: "Linux Basics",
+                tag_crm: "Zoho CRM",
+                tag_seo: "Technical SEO",
+                tag_analytics: "Google Analytics",
+                tag_canva: "Canva Pro",
+                tag_story: "Storytelling",
+                tag_ci: "Corporate Identity",
+                tag_social: "Social Growth",
+                tag_pm: "Project Mgmt",
+                tag_agile: "Agile Methods",
+                tag_team: "Team Leadership",
+                tag_mckinsey: "McKinsey Forward",
+                projects_title: "Selected Projects",
+                projects_subtitle: "Practical application of Brand Building, Infrastructure, and Marketing Strategy.",
+                proj1_title: "Agora Events: Brand Building",
+                proj1_desc: "Conception and launch of an independent event brand. As Marketing Lead, I was responsible for the <strong>Corporate Identity</strong> and Go-to-Market Strategy. Focus on \"Scarcity Marketing\" to increase demand.",
+                proj1_li1: "Development of a modern \"Dark Mode\" brand identity using Canva & Tailwind CSS.",
+                proj1_li2: "Building a direct community channel via WhatsApp to bypass algorithms.",
+                proj1_li3: "Implementation of digital sales funnels for ticket launches.",
+                proj2_title: "Summitglow Staffing: Infrastructure",
+                proj2_desc: "Co-founding a staffing agency. My focus was on <strong>digital infrastructure</strong> and generating B2B leads. I established technical processes to make the business scalable.",
+                proj2_li1: "Setup of Zoho CRM for automating applicant management.",
+                proj2_li2: "SEO-optimized website development & copywriting for B2B clients.",
+                proj2_li3: "Structuring business processes and legal incorporation (LLC).",
+                timeline_title: "Career History",
+                time1_date: "Jan 2025 - Present",
+                time1_desc: "Improving guest satisfaction through direct communication. Analysis of feedback data to optimize internal workflows.",
+                time2_date: "May 2024 - Jan 2025",
+                time2_desc: "Strategic direction of digital marketing. Introduction of Zoho CRM for process automation and building the technical SEO structure.",
+                time3_date: "Jun 2022 - Jan 2025",
+                time3_role: "Vocational Training Hotel Specialist (Marketing)",
+                time3_desc: "Creation of marketing materials (flyers, digital signage). Development of successful upselling strategies to increase revenue.",
+                time4_date: "Graduated 2021",
+                time4_desc: "Focus: <strong>Applied Linguistics & Psychology</strong>. Analysis of language patterns to influence purchasing decisions.",
+                cta_title: "Get in Touch",
+                cta_desc: "I am looking for a challenge in Digital Marketing or Brand Management.<br>Ready to contribute my strategic and operational skills."
+            }
+        };
+
+        // Load Language from Storage or Default to German
+        let currentLang = localStorage.getItem('portfolio_lang') || 'de';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'de' ? 'en' : 'de';
+            localStorage.setItem('portfolio_lang', currentLang);
+            updateContent();
+        }
+
+        function updateContent() {
+            // Update Text
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.innerHTML = translations[currentLang][key];
+                }
+            });
+            // Update Button Label
+            document.getElementById('lang-current').innerText = currentLang.toUpperCase();
+            
+            // Re-initialize icons just in case dynamic HTML breaks them (safety check)
+            lucide.createIcons();
+        }
+
+        // Initialize Content
+        updateContent();
+
+        // --- SCROLL ANIMATIONS ---
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-slide-up');
+                    entry.target.style.opacity = '1';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+            el.style.opacity = '0'; // Initial state
+            observer.observe(el);
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md', 'bg-white/95');
+                navbar.classList.remove('bg-white/90');
+            } else {
+                navbar.classList.remove('shadow-md', 'bg-white/95');
+                navbar.classList.add('bg-white/90');
+            }
+        });
+
+        // Mobile Menu Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('open');
+        });
+
+        function closeMenu() {
+            menu.classList.remove('open');
+        }
+    </script>
 </body>
 </html>
